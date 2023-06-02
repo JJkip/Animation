@@ -22,7 +22,8 @@ struct ContentView: View {
 //        .animation(.default, value: animationAmount)
 //        .animation(.interpolatingSpring(stiffness: 50, damping:1), value: animationAmount)
 //        .animation(.easeInOut(duration: 2).delay(1), value: animationAmount)
-        .animation(.easeInOut(duration: 1).repeatCount(3, autoreverses: true), value: animationAmount)
+//        .animation(.easeInOut(duration: 1).repeatCount(3, autoreverses: true), value: animationAmount)
+        .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: animationAmount)
     }
 }
 
