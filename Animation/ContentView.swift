@@ -40,13 +40,16 @@ struct ContentView: View {
             .clipShape(Circle())
             .rotation3DEffect(.degrees(exAnimationAmount), axis: (x: 0, y: 1, z: 0))
             Spacer()
-            Button("Tap ME"){
+            Button("Press ME"){
                 enabled.toggle()
             }
             .frame(width: 200, height: 200)
             .background(enabled ? .blue : .green)
+            .animation(nil, value: enabled)
             .foregroundColor(.white)
-            .animation(.default, value: enabled)
+            .clipShape(RoundedRectangle(cornerRadius: enabled ? 60 : 0))
+            .animation(.interpolatingSpring(stiffness: 10, damping: 1 ), value: enabled)
+//            .animation(.default, value: enabled)
 //            .overlay(
 //                Circle()
 //                    .stroke(.red)
