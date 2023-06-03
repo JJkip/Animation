@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var animationAmount = 1.0
     @State private var exAnimationAmount = 0.0
+    @State private var enabled = false
     var body: some View {
         print(animationAmount)
         
@@ -38,6 +39,14 @@ struct ContentView: View {
             .foregroundColor(.white)
             .clipShape(Circle())
             .rotation3DEffect(.degrees(exAnimationAmount), axis: (x: 0, y: 1, z: 0))
+            Spacer()
+            Button("Tap ME"){
+                enabled.toggle()
+            }
+            .frame(width: 200, height: 200)
+            .background(enabled ? .blue : .green)
+            .foregroundColor(.white)
+            .animation(.default, value: enabled)
 //            .overlay(
 //                Circle()
 //                    .stroke(.red)
