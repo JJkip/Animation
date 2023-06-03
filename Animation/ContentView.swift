@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var animationAmount = 1.0
+    @State private var exAnimationAmount = 0.0
     var body: some View {
         print(animationAmount)
         
@@ -26,6 +27,17 @@ struct ContentView: View {
             .foregroundColor(.white)
             .clipShape(Circle())
             .scaleEffect(animationAmount)
+            Spacer()
+            Button("Click Me"){
+                withAnimation{
+                    exAnimationAmount += 360
+                }
+            }
+            .padding(50)
+            .background(.green)
+            .foregroundColor(.white)
+            .clipShape(Circle())
+            .rotation3DEffect(.degrees(exAnimationAmount), axis: (x: 0, y: 1, z: 0))
 //            .overlay(
 //                Circle()
 //                    .stroke(.red)
