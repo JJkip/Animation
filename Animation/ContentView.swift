@@ -29,7 +29,7 @@ struct ContentView: View {
             .scaleEffect(animationAmount)
             Spacer()
             Button("Click Me"){
-                withAnimation{
+                withAnimation(.interpolatingSpring(stiffness: 5, damping: 1)){
                     exAnimationAmount += 360
                 }
             }
