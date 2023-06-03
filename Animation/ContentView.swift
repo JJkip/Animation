@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var animationAmount = 1.0
     @State private var exAnimationAmount = 0.0
     @State private var enabled = false
+    @State private var dragAmount = CGSize.zero
     var body: some View {
         print(animationAmount)
         
@@ -49,6 +50,17 @@ struct ContentView: View {
             .foregroundColor(.white)
             .clipShape(RoundedRectangle(cornerRadius: enabled ? 60 : 0))
             .animation(.interpolatingSpring(stiffness: 10, damping: 1 ), value: enabled)
+            Spacer()
+            LinearGradient(gradient: Gradient(colors: [.pink, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                .frame(width: 300, height: 200)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .offset(dragAmount)
+                .gesture(
+                    DragGesture()
+                        .onChanged {dragAmount = $0.translation}
+                        .onEnded { _ in dragAmount = .zero}
+                )
+                .animation(.spring(), value: dragAmount)
 //            .animation(.default, value: enabled)
 //            .overlay(
 //                Circle()
