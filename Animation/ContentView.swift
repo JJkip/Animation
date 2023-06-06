@@ -8,14 +8,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    let letters = Array("Hello, SwiftUI")
+    @State private var enabledB = false
+    @State private var dragAmountB = CGSize.zero
     @State private var animationAmount = 1.0
     @State private var exAnimationAmount = 0.0
     @State private var enabled = false
     @State private var dragAmount = CGSize.zero
     var body: some View {
+        HStack(spacing: 0){
+            ForEach(0..<letters.count){ num in
+                Text(String(letters[num]))
+                    .padding(5)
+                    .font(.title)
+                    .background(enabledB ? .pink : .purple)
+                    .offset(dragAmountB)
+                    .animation(
+                        .default,
+                        value: dragAmountB)
+            }
+        }
+        .gesture(
+            DragGesture()
+                .onChanged {dragAmountB = $0.translation}
+                .onEnded { _ in
+                    dragAmountB = .zero
+                    enabledB.toggle()
+                }
+        )
+        /*
         print(animationAmount)
         
-        return VStack {
+        
+         return VStack {
             Stepper("Scale amount", value: $animationAmount.animation(
                 .easeInOut(duration: 1)
                 .repeatCount(3,autoreverses: true)
@@ -64,8 +89,11 @@ struct ContentView: View {
                             }
                         }
                 )
+            Spacer()
+           
 //                .animation(.spring(), value: dragAmount)
             
+           
 //            .animation(.default, value: enabled)
 //            .overlay(
 //                Circle()
@@ -82,6 +110,7 @@ struct ContentView: View {
 //                animationAmount = 2
 //            }
         }
+        
        
 //        .scaleEffect(animationAmount)
 //        .blur(radius: (animationAmount - 1) * 3)
@@ -90,6 +119,8 @@ struct ContentView: View {
 //        .animation(.easeInOut(duration: 2).delay(1), value: animationAmount)
 //        .animation(.easeInOut(duration: 1).repeatCount(3, autoreverses: true), value: animationAmount)
 //        .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: animationAmount)
+         
+         */
     }
 }
 
