@@ -7,7 +7,28 @@
 
 import SwiftUI
 
+struct CornerRotateModifier: ViewModifier {
+    let amount: Double
+    let anchor: UnitPoint
+
+    func body(content: Content) -> some View {
+        content
+            .rotationEffect(.degrees(amount), anchor: anchor)
+            .clipped()
+    }
+}
+
+extension AnyTransition {
+    static var pivot: AnyTransition {
+        .modifier(
+            active: CornerRotateModifier(amount: -90, anchor: .topLeading),
+            identity: CornerRotateModifier(amount: 0, anchor: .topLeading)
+        )
+    }
+}
+
 struct ContentView: View {
+    @State private var isShowingPink = false
     let letters = Array("Hello, SwiftUI")
     @State private var isShowingRectangle  = false
     @State private var enabledB = false
@@ -17,6 +38,24 @@ struct ContentView: View {
     @State private var enabled = false
     @State private var dragAmount = CGSize.zero
     var body: some View {
+        ZStack {
+            Rectangle()
+                .fill(.purple)
+                .frame(width: 200, height: 200)
+            
+            if isShowingPink {
+                Rectangle()
+                    .fill(.pink)
+                    .frame(width: 200, height: 200)
+                    .transition(.pivot)
+            }
+        }
+        .onTapGesture {
+            withAnimation {
+                isShowingPink.toggle()
+            }
+        }
+        /*
         VStack {
             Button("Tap Me") {
                 withAnimation {
@@ -31,6 +70,7 @@ struct ContentView: View {
                     .transition(.asymmetric(insertion: .scale, removal: .opacity))
             }
         }
+         */
         /*
         HStack(spacing: 0){
             ForEach(0..<letters.count){ num in
