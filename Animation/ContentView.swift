@@ -27,6 +27,7 @@ struct ContentView: View {
                 Rectangle()
                     .fill(.purple)
                     .frame(width: 200, height: 200)
+                    .transition(.scale)
             }
         }
         /*
