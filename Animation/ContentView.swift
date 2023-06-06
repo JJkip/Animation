@@ -19,7 +19,9 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Button("Tap Me") {
-                isShowingRectangle.toggle()
+                withAnimation {
+                    isShowingRectangle.toggle()
+                }
             }
             if isShowingRectangle {
                 Rectangle()
