@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     let letters = Array("Hello, SwiftUI")
+    @State private var isShowingRectangle  = false
     @State private var enabledB = false
     @State private var dragAmountB = CGSize.zero
     @State private var animationAmount = 1.0
@@ -16,6 +17,17 @@ struct ContentView: View {
     @State private var enabled = false
     @State private var dragAmount = CGSize.zero
     var body: some View {
+        VStack {
+            Button("Tap Me") {
+                isShowingRectangle.toggle()
+            }
+            if isShowingRectangle {
+                Rectangle()
+                    .fill(.purple)
+                    .frame(width: 200, height: 200)
+            }
+        }
+        /*
         HStack(spacing: 0){
             ForEach(0..<letters.count){ num in
                 Text(String(letters[num]))
@@ -36,6 +48,7 @@ struct ContentView: View {
                     enabledB.toggle()
                 }
         )
+         */
         /*
         print(animationAmount)
         
